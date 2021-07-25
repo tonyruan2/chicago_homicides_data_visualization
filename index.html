@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homicides in Chicago (2001 - 2020)</title>
+
+    <!--Bootstrap and JQuery-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!--D3-->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!--main and styles-->
+    <script type="text/javascript" src="./main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body onload="main()">
+  <div class="container">
+    <h4>Data Visualization of Homicides in Chicago from 2001 to 2020</h4>
+    <hr></hr>
+
+    <div class="row">
+
+      <div class="col-4 mainSVGAnnotationContainer">
+        <div class="btn-toolbar" role="toolbar" aria-label="Slide navigator toolbar">
+          <div class="btn-group mr-2 slideBtnGroup" role="group" aria-label="Slide navigator buttons">
+            <button type="button" id="slidebtn1" class="btn btn-secondary" onclick="set_slide_number(1)">1</button>
+            <button type="button" id="slidebtn2" class="btn btn-secondary " onclick="set_slide_number(2)">2</button>
+            <button type="button" id="slidebtn3" class="btn btn-secondary" onclick="set_slide_number(3)">3</button>
+            <button type="button" id="slidebtn4" class="btn btn-secondary" onclick="set_slide_number(4)">4</button>
+            <button type="button" id="slidebtn5" class="btn btn-secondary" onclick="set_slide_number(5)">5</button>
+            <button type="button" id="slidebtn6" class="btn btn-secondary" onclick="set_slide_number(6)">6</button>
+            <button type="button" class="btn btn-primary" onclick="increment_slide_number()">Next</button>
+          </div>
+        </div>
+
+        <div id="mainSlideAnnotationTitle" class="annotationTitle">
+        </div>
+        <div id="mainSlideAnnotationText1" class="annotationText">
+        </div>
+        <div id="mainSlideAnnotationText2" class="annotationText">
+        </div>
+        <div id="mainSlideAnnotationText3" class="annotationText">
+        </div>
+      </div>
+
+      <div class="col-8" id="mainSlideDiv">
+
+      </div>
+
+    </div>
+
+    <div class="usageTextContainer">
+      <h6>Usage</h6>
+      <p>Navigate linearly through the interactive slide show by clicking the 'Next' button.</p>
+      <p>Hover over each data point to see an informative tooltip.</p>
+      <p>In each slide, drill down further by clicking on a circle representing a year. A 'Year' modal containing information for the selected year will open.</p>
+      <p>In each 'Year' modal, click on a month to drill down even further. A 'Month' modal containing information for the selected (year, month) will open.</p>
+    </div>
+  </div>
+
+
+  <div class="modal fade bd-example-modal-lg" id="drillDownModalYear" tabindex="-1" role="dialog" aria-labelledby="yearModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="drillDownModalYearTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="drillDownModalYearBody">
+        <div class="drillDownModalAnnotationContainer">
+          <div id="drillDownModalYearAnnotation1"></div>
+          <div id="drillDownModalYearAnnotation2"></div>
+          <div id="drillDownModalYearAnnotation3"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" id="drillDownModalMonth" tabindex="0" role="dialog" aria-labelledby="monthModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border: 5px solid black; background-color: lightgray" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="drillDownModalMonthTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" id="drillDownModalMonthBody">
+        <div class="modal-body">
+          <div id="drillDownModalMonthAnnotation1"></div>
+          <div id="drillDownModalMonthAnnotation2"></div>
+
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

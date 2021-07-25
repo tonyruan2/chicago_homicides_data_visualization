@@ -1,0 +1,40 @@
+.activeSlide {
+  border: 5px solid blue;
+}
+
+.mainSVGAnnotationContainer {
+  padding-top: 5%;
+  border-radius: 2%;
+  border: 1px solid black;
+  text-overflow: ellipsis;
+}
+
+.drillDownModalAnnotationContainer {
+  padding-bottom: 2%;
+}
+
+.monthButton {
+  fill: lightblue;
+  stroke-width: 1;
+  stroke: black;
+}
+
+.annotationTitle {
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.annotationText {
+  margin-bottom: 5%;
+}
+
+.usageTextContainer {
+  margin-top: 2%;
+  font-size: 12px;
+}
+
+.slideBtnGroup {
+  display: contents;
+}
