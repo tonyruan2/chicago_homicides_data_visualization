@@ -76,7 +76,7 @@ function get_active_slide_text_1() {
     text = "In the six years between 2002 and 2007, there was a noticeable decline in the number of homicides reported per year in Chicago.";
   }
   else if (slide_number == 3) {
-    text = "There was a slight resurgence in the number of homicides reported in Chicago in 2008.";
+    text = "In 2008, there was a slight resurgence in the number of homicides reported in Chicago.";
   }
   else if (slide_number == 4) {
     text = "But the equilibrium depicted in previous years would not last for long.";
@@ -85,7 +85,7 @@ function get_active_slide_text_1() {
     text = "From 2017 to 2019, there was a sharp decline in the number of homicides reported per year.";
   }
   else if (slide_number == 6) {
-    text = "Unfortunately, a 21st-century record high of 789 homicides were reported in Chicago in 2020.";
+    text = "Unfortunately, a 21st-century record high of 789 homicides was reported in Chicago in 2020.";
   }
   return text
 }
@@ -96,10 +96,10 @@ function get_active_slide_text_2() {
     text = "According to the Chicago Tribune, a news company, Chicago had the most homicides reported out of any city in the United States in 2001. New York City followed closely with 642 homicides reported.";
   }
   else if (slide_number == 2) {
-    text = "Most remarkably, 149 less homicides were reported in 2004 than in 2003. In addition, when compared to 2001, there was a decrease of over 200 homicides reported in 2007.";
+    text = "Most remarkably, 150 less homicides were reported in 2004 than in 2003.";
   }
   else if (slide_number == 3) {
-      text = "However, from 2009 to 2011, the number of homicides reported per year did not increase. Moreover, the data from 2004 to 2011 seem to oscillate around an equilibrium of approximately 450 homicides reported per year.";
+      text = "However, from 2009 to 2011, the number of homicides reported per year did not increase. Moreover, homicide statistics from 2004 to 2011 seem to oscillate around an equilibrium of approximately 450 homicides reported per year.";
   }
   else if (slide_number == 4) {
     text = "While the number of homicides reported from 2012 to 2015 were on par with past years, a groundbreaking 788 homicides were reported in 2016. This number was, at the time, a record high for Chicago in the 21st century.";
