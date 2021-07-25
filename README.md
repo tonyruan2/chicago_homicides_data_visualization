@@ -2,11 +2,11 @@
 
 CS 416 Data Visualization project by Tony Ruan
 
-Homicide data obtained from: https://data.cityofchicago.org/Public-Safety/Homicides/iyvd-p5ga
+Homicide data obtained from https://data.cityofchicago.org/Public-Safety/Homicides/iyvd-p5ga
 
-Preprocessing done in the preprocess/ folder using Python
+Preprocessing is done in the preprocess/ folder using Python
 
-data used in the data/ folder
+Data used in the visualization is located in the data/ folder
 
 Tools used: d3.js, Bootstrap, JQuery
 
