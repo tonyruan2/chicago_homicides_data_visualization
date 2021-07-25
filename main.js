@@ -246,7 +246,7 @@ async function set_slide_number(num) {
 async function render_slide_number() {
   let first_year = SLIDE_NUMBER_TO_YEAR_RANGE[slide_number][0]
   let last_year = SLIDE_NUMBER_TO_YEAR_RANGE[slide_number][1]
-  let data = await d3.csv("/data/chicago_yearly_homicide_data.csv")
+  let data = await d3.csv("data/chicago_yearly_homicide_data.csv")
 
   data = data.map(elem => {
       return {
@@ -342,7 +342,7 @@ async function main() {
 }
 
 async function render_single_month_modal(year, month) {
-  let data = await d3.csv("/data/chicago_daily_homicide_data.csv");
+  let data = await d3.csv("data/chicago_daily_homicide_data.csv");
 
   data = data.map(elem => {
       return {
@@ -451,7 +451,7 @@ async function render_single_month_modal(year, month) {
 }
 
 async function render_single_year_view(year) {
-  let data = await d3.csv("/data/chicago_daily_homicide_data.csv");
+  let data = await d3.csv("data/chicago_daily_homicide_data.csv");
 
   data = data.map(elem => {
       return {
