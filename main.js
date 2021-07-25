@@ -85,7 +85,7 @@ function get_active_slide_text_1() {
     text = "From 2017 to 2019, there was a sharp decline in the number of homicides reported per year.";
   }
   else if (slide_number == 6) {
-    text = "Unfortunately, a 21st-century record high of 789 homicides was reported in Chicago in 2020.";
+    text = "Unfortunately, a 21st-century record high of 789 homicides was reported in Chicago in 2020. This meant that, on average, more than two homicides were being reported every day.";
   }
   return text
 }
