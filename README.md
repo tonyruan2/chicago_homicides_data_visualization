@@ -9,3 +9,5 @@ Preprocessing done in the preprocess/ folder using Python
 data used in the data/ folder
 
 Tools used: d3.js, Bootstrap, JQuery
+
+News articles referenced in the visualization: https://www.chicagotribune.com/news/ct-xpm-2002-01-03-0201030302-story.html (Chicago Tribune) and https://www.theguardian.com/us-news/2017/jan/02/chicago-homicides-shootings-2016 (The Guardian)
