@@ -311,6 +311,7 @@ async function render_slide_number() {
     .attr("r", 8)
     .attr("cx", d => x_scale.bandwidth() * (d.year - MIN_YEAR + 0.5) + MAIN_SLIDE_SVG_MARGIN)
     .attr("cy", d => y_scale(d.homicides))
+    .attr("cursor", "pointer")
     .on("click", d => render_single_year_view(d.target.__data__.year))
     .append("title")
     .text(d => `${d.homicides} homicides reported in ${d.year}`);
@@ -518,14 +519,14 @@ async function render_single_year_view(year) {
       .attr("font-size", 8)
       .text("Monthly");
 
-      drill_down_year_svg.append("g").attr("transform", `translate(${LEGEND_WIDTH}, ${2 * AXIS_MARGIN})`)
-        .selectAll("text")
-        .data(months_in_year)
-        .enter().append("text")
-          .attr("x", AXIS_MARGIN + 5)
-          .attr("y", 5)
-          .attr("font-size", 8)
-          .text("Homicides");
+  drill_down_year_svg.append("g").attr("transform", `translate(${LEGEND_WIDTH}, ${2 * AXIS_MARGIN})`)
+    .selectAll("text")
+    .data(months_in_year)
+    .enter().append("text")
+      .attr("x", AXIS_MARGIN + 5)
+      .attr("y", 5)
+      .attr("font-size", 8)
+      .text("Homicides");
 
   drill_down_year_svg.append("g").attr("transform", `translate(${LEGEND_WIDTH}, ${2 * AXIS_MARGIN})`)
     .selectAll("text")
@@ -537,7 +538,7 @@ async function render_single_year_view(year) {
 
 
   drill_down_year_svg.append("g").attr("transform", `translate(${AXIS_MARGIN}, ${2 * AXIS_MARGIN})`)
-    .call(y_axis).on("click", d => render_single_month_modal(year, MONTH_MAPPING.indexOf(d.target.lastChild.data)));
+    .call(y_axis).attr("cursor", "pointer").on("click", d => render_single_month_modal(year, MONTH_MAPPING.indexOf(d.target.lastChild.data)));
   // create legend
   const max_daily_homicides = d3.max(data.map(elem => elem.homicides));
 

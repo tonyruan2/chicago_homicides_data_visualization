@@ -17,6 +17,7 @@
   fill: lightblue;
   stroke-width: 1;
   stroke: black;
+  cursor: pointer;
 }
 
 .annotationTitle {
