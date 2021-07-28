@@ -36,14 +36,17 @@ var drill_down_year_svg = null;
 var drill_down_month_svg = null;
 var slide_number = 1;
 
+// map index to string representation of month
 function map_months(months) {
   return months.map(i => MONTH_MAPPING[i]);
 }
 
+//map index to string representation of day
 function map_days(days) {
   return days.map(i => DAY_MAPPING[i]);
 }
 
+// return the slide title for the current slide
 function get_active_slide_title() {
   let title = "";
   if (slide_number == 1) {
@@ -67,6 +70,7 @@ function get_active_slide_title() {
   return title;
 }
 
+// return the first paragraph for the current slide
 function get_active_slide_text_1() {
   let text = "";
   if (slide_number == 1) {
@@ -90,6 +94,7 @@ function get_active_slide_text_1() {
   return text
 }
 
+// return the second paragraph for the current slide
 function get_active_slide_text_2() {
   let text = "";
   if (slide_number == 1) {
@@ -113,6 +118,7 @@ function get_active_slide_text_2() {
   return text;
 }
 
+// return the third paragraph for the current slide
 function get_active_slide_text_3() {
   let text = "";
   if (slide_number == 1) {
@@ -136,6 +142,7 @@ function get_active_slide_text_3() {
   return text;
 }
 
+// return the data needed by d3 for each rectangle in the legend
 function setup_legend_data(max_daily_homicides) {
   let legend_data = [];
   for (let i = 0; i <= max_daily_homicides; i += 1) {
@@ -144,6 +151,7 @@ function setup_legend_data(max_daily_homicides) {
   return legend_data;
 }
 
+// set the active slide and change the outline to match
 function set_active_slide() {
   for (let i = MIN_SLIDE_NUMBER; i <= MAX_SLIDE_NUMBER; i += 1) {
     $('#slidebtn' + String(i)).removeClass("activeSlide");
@@ -152,6 +160,7 @@ function set_active_slide() {
   $('#slidebtn' + String(slide_number)).addClass("activeSlide");
 }
 
+// append data annotations to line chart svg
 function append_main_svg_annotations() {
   if (slide_number == 1) {
     main_slide_svg.append("g").attr("transform", `translate(90, 150)`)
@@ -227,6 +236,7 @@ function append_main_svg_annotations() {
   }
 }
 
+// increase slide number if possible
 async function increment_slide_number() {
   if (slide_number < MAX_SLIDE_NUMBER) {
     slide_number += 1;
@@ -235,6 +245,7 @@ async function increment_slide_number() {
   }
 }
 
+// set slide number
 async function set_slide_number(num) {
   if (num >= MIN_SLIDE_NUMBER && num <= MAX_SLIDE_NUMBER) {
     slide_number = num;
@@ -243,6 +254,7 @@ async function set_slide_number(num) {
   }
 }
 
+// render current slide
 async function render_slide_number() {
   let first_year = SLIDE_NUMBER_TO_YEAR_RANGE[slide_number][0]
   let last_year = SLIDE_NUMBER_TO_YEAR_RANGE[slide_number][1]
@@ -255,7 +267,6 @@ async function render_slide_number() {
       };
     }).filter(elem => elem.year <= last_year);
 
-  // create svg
   if (main_slide_svg != null) {
     main_slide_svg.remove();
   }
@@ -337,12 +348,15 @@ async function render_slide_number() {
 
 }
 
+// entry function from index.html
 async function main() {
   await render_slide_number();
   set_active_slide();
 }
 
+// render the 'Month' modal
 async function render_single_month_modal(year, month) {
+  // load data
   let data = await d3.csv("./data/chicago_daily_homicide_data.csv");
 
   data = data.map(elem => {
@@ -356,10 +370,12 @@ async function render_single_month_modal(year, month) {
       };
     }).filter(elem => elem.year == year && elem.month == month);
 
+  // remove current 'Month' modal
   if (drill_down_month_svg != null) {
     drill_down_month_svg.remove();
   }
 
+  // update new month modal
   $('#drillDownModalMonth').modal('show');
   $('#drillDownModalMonthTitle').text(map_months([month])[0]+ " " + String(year));
 
@@ -370,7 +386,7 @@ async function render_single_month_modal(year, month) {
       .attr("viewBox", [0, 0, SVG_WIDTH, SVG_HEIGHT])
       .attr("font-size", "24");
 
-  // create axes
+  // set axes
   const week_numbers = [...new Set(data.map(function(elem) { return elem.week_number; }))].sort(function(a, b) { return a - b; })
   const week_days = [...new Set(data.map(function(elem) { return elem.day_of_week; }))].sort(function(a, b) { return a - b; });
 
@@ -385,7 +401,8 @@ async function render_single_month_modal(year, month) {
 
   drill_down_month_svg.append("g").attr("transform", `translate(${AXIS_MARGIN}, ${2 * AXIS_MARGIN})`)
     .call(y_axis).attr("font-size", "24");
-  // create legend
+
+  // set legend
   const max_daily_homicides = d3.max(data.map(elem => elem.homicides));
 
   const color_scale = d3.scaleLinear().domain([0, max_daily_homicides]).range(['beige', '#FF0000']);
@@ -423,13 +440,13 @@ async function render_single_month_modal(year, month) {
     .attr("font-size", "16")
     .style("user-select", "none");
 
-  // create visualization of homicides reported in each month from year 2001 to 2020
   drill_down_month_svg.append("g").attr("transform", `translate(0, ${1.8 * AXIS_MARGIN})`)
     .append("text")
     .text("Week # / Day")
     .attr("font-size", "9")
     .style("user-select", "none");
 
+  // set table of rectangles
   drill_down_month_svg.append("g").attr("transform", `translate(${AXIS_MARGIN}, ${2 * AXIS_MARGIN})`)
     .selectAll("rect")
     .data(data)
@@ -451,7 +468,9 @@ async function render_single_month_modal(year, month) {
   d3.select("#drillDownModalMonthAnnotation2").style("font-size", "12px").text("Day(s) with most homicides: " + days_with_most_homicides.join(', '));
 }
 
+// render the 'Year' modal
 async function render_single_year_view(year) {
+  // load data
   let data = await d3.csv("./data/chicago_daily_homicide_data.csv");
 
   data = data.map(elem => {
@@ -465,10 +484,12 @@ async function render_single_year_view(year) {
       };
     }).filter(elem => elem.year == year);
 
+  // remove current 'Year' modal
   if (drill_down_year_svg != null) {
     drill_down_year_svg.remove();
   }
 
+  // update nte 'Year' modal
   $('#drillDownModalYear').modal('show');
   $('#drillDownModalYearTitle').text("Year " + String(year));
 
@@ -478,7 +499,7 @@ async function render_single_year_view(year) {
       .attr("height", "66%")
       .attr("viewBox", [0, 0, SVG_WIDTH, SVG_HEIGHT]);
 
-  // create axes
+  // set axes
   const months_in_year = [...new Set(data.map(function(elem) { return elem.month; }))].sort(function(a, b) { return a - b; })
   const days_of_month = [...new Set(data.map(function(elem) { return elem.day; }))].sort(function(a, b) { return a - b; });
 
@@ -510,6 +531,7 @@ async function render_single_year_view(year) {
            };
     });
 
+  // add monthly homicides annotation
   drill_down_year_svg.append("g").attr("transform", `translate(${LEGEND_WIDTH}, ${2 * AXIS_MARGIN})`)
     .selectAll("text")
     .data(months_in_year)
@@ -539,7 +561,8 @@ async function render_single_year_view(year) {
 
   drill_down_year_svg.append("g").attr("transform", `translate(${AXIS_MARGIN}, ${2 * AXIS_MARGIN})`)
     .call(y_axis).attr("cursor", "pointer").on("click", d => render_single_month_modal(year, MONTH_MAPPING.indexOf(d.target.lastChild.data)));
-  // create legend
+
+  // set legend
   const max_daily_homicides = d3.max(data.map(elem => elem.homicides));
 
   const color_scale = d3.scaleLinear().domain([0, max_daily_homicides]).range(['beige', '#FF0000']);
@@ -576,13 +599,13 @@ async function render_single_year_view(year) {
     .attr("dominant-baseline", "top")
     .style("user-select", "none");
 
-  // create visualization of homicides reported in each month from year 2001 to 2020
   drill_down_year_svg.append("g").attr("transform", `translate(0, ${1.8 * AXIS_MARGIN})`)
     .append("text")
     .text("Month / Day #")
     .attr("font-size", 8)
     .style("user-select", "none");
 
+  // set table of rectangles
   drill_down_year_svg.append("g").attr("transform", `translate(${AXIS_MARGIN}, ${2 * AXIS_MARGIN})`)
     .selectAll("rect")
     .data(data)
@@ -607,6 +630,4 @@ async function render_single_year_view(year) {
   d3.select("#drillDownModalYearAnnotation1").style("font-size", "12px").text("Total homicides reported: " + String(homicides_in_year));
   d3.select("#drillDownModalYearAnnotation2").style("font-size", "12px").text("Month(s) with most homicides: " + months_with_most_homicides.join(', '));
   d3.select("#drillDownModalYearAnnotation3").style("font-size", "12px").text("Day(s) with most homicides: " + days_with_most_homicides.join(', '));
-
-
 }
