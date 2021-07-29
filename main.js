@@ -459,7 +459,7 @@ async function render_single_month_modal(year, month) {
       .style("margin-top", TILE_MARGIN)
       .style("margin-left", TILE_MARGIN)
       .append("title")
-      .text(d => `${d.homicides} homicides reported on ${map_months([d.month])[0]} ${d.day}, ${d.year}`);
+      .text(d => d.homicides == 1 ? `${d.homicides} homicide reported on ${map_months([d.month])[0]} ${d.day}, ${d.year}` : `${d.homicides} homicides reported on ${map_months([d.month])[0]} ${d.day}, ${d.year}`);
 
   let total_homicides = data.reduce(function(total, current) { return total + current.homicides }, 0);
   let days_with_most_homicides = data.filter(elem => elem.homicides == max_daily_homicides).map(elem => String(elem.day));
@@ -618,7 +618,7 @@ async function render_single_year_view(year) {
       .style("margin-top", TILE_MARGIN)
       .style("margin-left", TILE_MARGIN)
       .append("title")
-      .text((d, i) => `${data[i].homicides} homicides reported on ${map_months([data[i].month])[0]} ${data[i].day}, ${data[i].year}`)
+      .text((d, i) => data[i].homicides == 1 ? `${data[i].homicides} homicide reported on ${map_months([data[i].month])[0]} ${data[i].day}, ${data[i].year}` : `${data[i].homicides} homicides reported on ${map_months([data[i].month])[0]} ${data[i].day}, ${data[i].year}`)
 
   let homicides_in_year = data.reduce(function(total, current) { return total + current.homicides; }, 0);
   let max_homicides_in_month = d3.max(total_homicides_per_month.map(elem => elem.homicides));
