@@ -1,6 +1,6 @@
-# chicago_homicides_data_visualization
+# chicago_homicides_narrative_visualization
 
-CS 416 Data Visualization project by Tony Ruan
+CS 416 [Narrative Visualization](https://tonyruan2.github.io/chicago_homicides_narrative_visualization/) project by Tony Ruan
 
 Homicide data obtained from https://data.cityofchicago.org/Public-Safety/Homicides/iyvd-p5ga
 
